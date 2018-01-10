@@ -72,18 +72,25 @@
 
         addPopup(popupName, popupDiv);
 
-        var offset = (popups.length - 1) * 10;
+        var offset = (popups.length - 1);
 
-        var popupContainer = popupDiv.find(".pPopupContainer");
+        var popupContainer = popupDiv.find(".pPopupContainer"),
+            popupBackgroundFilter = popupDiv.find(".pPopupBackgroundFilter");
 
         var marginLeft = parseFloat(popupContainer.css("margin-left").replace("px", "")),
-            marginTop = parseFloat(popupContainer.css("margin-top").replace("px", ""));
+            marginTop = parseFloat(popupContainer.css("margin-top").replace("px", "")),
+            zContainer = parseFloat(popupContainer.css("z-index")),
+            zFilter = parseFloat(popupBackgroundFilter.css("z-index"));
 
-        var newMarginLeft = (marginLeft + offset).toString() + "px",
-            newMarginTop = (marginTop + offset).toString() + "px";
+        var newMarginLeft = (marginLeft + (offset * 10)).toString() + "px",
+            newMarginTop = (marginTop + (offset * 10)).toString() + "px",
+            newZContainer = zContainer + (offset * 2),
+            newZFilter = zFilter + (offset * 2);
 
         popupContainer.css("margin-left", newMarginLeft);
         popupContainer.css("margin-top", newMarginTop);
+        popupContainer.css("z-index", newZContainer);
+        popupBackgroundFilter.css("z-index", newZFilter);
 
         onOpenCallback(popupDiv.find(".pPopupContent"));
 
